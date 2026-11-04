@@ -1,20 +1,68 @@
-const grid = document.querySelector("#service-grid");
-if (grid) {
-  grid.innerHTML = services.map(service => `
-    <article class="service-card">
-      <a href="servicos/${service.id}.html">
-        <div class="service-photo" style="--photo: url('${service.image}')">
-          <span class="service-number">${service.number} / 06</span>
-        </div>
-        <div class="service-info">
-          <div class="service-tag">${service.cat}</div>
-          <h3>${service.title}</h3>
-          <p>${service.desc}</p>
-          <div class="service-footer"><span>Orçamento personalizado</span><strong>Ver serviço ↗</strong></div>
-        </div>
-      </a>
-    </article>
-  `).join("");
+const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
+const serviceIndex = document.querySelector("#service-index");
+if (serviceIndex) {
+  serviceIndex.innerHTML = `
+    <ol class="service-list" aria-label="Serviços da kernTech">
+      ${services.map(service => `
+        <li>
+          <a class="service-link" href="servicos/${service.id}.html" aria-describedby="desc-${service.id}">
+            <span class="service-number" aria-hidden="true">${service.number}</span>
+            <span class="service-title">${service.title}</span>
+            <span class="service-arrow" aria-hidden="true">↗</span>
+            <span class="service-description" id="desc-${service.id}">${service.desc}</span>
+          </a>
+        </li>
+      `).join("")}
+    </ol>
+    <div class="service-preview" aria-hidden="true">
+      <picture>
+        <source media="(min-width: 801px)">
+        <img alt="" decoding="async" width="960" height="640">
+      </picture>
+      <div class="service-preview-copy">
+        <span class="eyebrow"></span>
+        <p></p>
+      </div>
+    </div>
+  `;
+
+  const links = [...serviceIndex.querySelectorAll(".service-link")];
+  const preview = serviceIndex.querySelector(".service-preview");
+  const photo = preview.querySelector("source");
+  const category = preview.querySelector(".eyebrow");
+  const description = preview.querySelector("p");
+  let activeLink;
+  let transition;
+
+  function showService(index) {
+    const link = links[index];
+    if (link === activeLink) return;
+    const service = services[index];
+
+    activeLink?.classList.remove("is-previewed");
+    link.classList.add("is-previewed");
+    photo.srcset = service.image;
+    category.textContent = `${service.number} / 06 · ${service.cat}`;
+    description.textContent = service.desc;
+
+    if (activeLink && !reducedMotion.matches && preview.offsetWidth) {
+      transition?.cancel();
+      transition = preview.animate([{ opacity: .55 }, { opacity: 1 }], {
+        duration: 230,
+        easing: "ease-out",
+      });
+    }
+    activeLink = link;
+  }
+
+  links.forEach((link, index) => {
+    link.addEventListener("pointerenter", event => {
+      if (event.pointerType !== "touch") showService(index);
+    });
+    link.addEventListener("focus", () => showService(index));
+  });
+  reducedMotion.addEventListener("change", () => transition?.cancel());
+  showService(0);
 }
 
 const select = document.querySelector("#service");
@@ -68,7 +116,7 @@ if ("IntersectionObserver" in window) {
     });
   }, { threshold: .08 });
 
-  document.querySelectorAll(".section-heading, .service-card, .campaign-inner, .contact-form, .content-cols > div").forEach(element => {
+  document.querySelectorAll(".section-heading, .service-index, .campaign-inner, .contact-form, .content-cols > div").forEach(element => {
     element.classList.add("reveal");
     observer.observe(element);
   });
@@ -106,39 +154,55 @@ if (heroTitle && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
   });
 }
 
-const codeLines = [
-  'import { network, storage } from "./infrastructure";',
-  'const session = await network.connect({ secure: true });',
-  'const snapshot = await storage.createSnapshot();',
-  'await storage.verify(snapshot.checksum);',
-  'const routes = network.routes.filter(route => route.active);',
-  'const status = await session.healthCheck();',
-  'if (status.ready) await session.sync(routes);',
-  'export { session, snapshot };',
-];
-const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
-
 document.querySelectorAll(".hero, .campaign, .subhero").forEach(section => {
-  const backdrop = document.createElement("div");
-  backdrop.className = "code-backdrop";
-  backdrop.setAttribute("aria-hidden", "true");
+  const canvas = document.createElement("canvas");
+  const context = canvas.getContext("2d");
+  if (!context) return;
 
-  const rows = Array.from({ length: 48 }, (_, index) => {
-    const row = document.createElement("div");
-    const number = String(index + 1).padStart(2, "0");
-    const line = codeLines[index % codeLines.length];
-    row.textContent = `  ${number}  ${line}      `.repeat(6);
-    return row;
-  });
-  backdrop.append(...rows);
-  section.prepend(backdrop);
+  canvas.className = "binary-backdrop";
+  canvas.setAttribute("aria-hidden", "true");
+  section.prepend(canvas);
 
-  let activeRow;
-  function resetBackdrop() {
-    backdrop.style.removeProperty("--code-x");
-    backdrop.style.removeProperty("--code-y");
-    activeRow?.classList.remove("code-active");
-    activeRow = undefined;
+  const spacing = 17;
+  const lifetime = 1150;
+  const waves = [];
+  let frame = null;
+  let lastPoint;
+  let width = 0;
+  let height = 0;
+  let scale = 0;
+
+  function render(now) {
+    frame = null;
+    context.clearRect(0, 0, width, height);
+
+    while (waves.length && now - waves[0].time >= lifetime) waves.shift();
+    for (const wave of waves) {
+      const progress = Math.max(0, (now - wave.time) / lifetime);
+      const radius = progress * 200;
+      const band = 25 + progress * 18;
+      const reach = radius + band;
+      const left = Math.max(0, Math.ceil((wave.x - reach) / spacing));
+      const right = Math.min(Math.floor(width / spacing), Math.floor((wave.x + reach) / spacing));
+      const top = Math.max(0, Math.ceil((wave.y - reach) / spacing));
+      const bottom = Math.min(Math.floor(height / spacing), Math.floor((wave.y + reach) / spacing));
+
+      for (let row = top; row <= bottom; row++) {
+        for (let column = left; column <= right; column++) {
+          const x = column * spacing;
+          const y = row * spacing;
+          const distanceFromWave = Math.abs(Math.hypot(x - wave.x, y - wave.y) - radius);
+          if (distanceFromWave >= band) continue;
+
+          const pattern = Math.imul(column + wave.seed, 73856093) ^ Math.imul(row, 19349663);
+          if ((pattern & 7) === 0) continue;
+          context.globalAlpha = .48 * (1 - progress) ** 1.4 * (1 - distanceFromWave / band);
+          context.fillText(pattern & 8 ? "1" : "0", x, y);
+        }
+      }
+    }
+
+    if (waves.length) frame = requestAnimationFrame(render);
   }
 
   section.addEventListener("pointermove", event => {
@@ -146,19 +210,36 @@ document.querySelectorAll(".hero, .campaign, .subhero").forEach(section => {
     const bounds = section.getBoundingClientRect();
     const x = event.clientX - bounds.left;
     const y = event.clientY - bounds.top;
-    const driftX = (x / bounds.width - .5) * 54;
-    const driftY = (y / bounds.height - .5) * 36;
-    backdrop.style.setProperty("--code-x", `${driftX}px`);
-    backdrop.style.setProperty("--code-y", `${driftY}px`);
+    const time = performance.now();
+    if (lastPoint && (time - lastPoint.time < 55 || Math.hypot(x - lastPoint.x, y - lastPoint.y) < spacing)) return;
 
-    const backdropTop = backdrop.getBoundingClientRect().top;
-    const rowHeight = rows[0].getBoundingClientRect().height;
-    const row = rows[Math.floor((event.clientY - backdropTop) / rowHeight)];
-    if (row === activeRow) return;
-    activeRow?.classList.remove("code-active");
-    row?.classList.add("code-active");
-    activeRow = row;
+    const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+    if (width !== bounds.width || height !== bounds.height || scale !== pixelRatio) {
+      width = bounds.width;
+      height = bounds.height;
+      scale = pixelRatio;
+      canvas.width = Math.round(width * scale);
+      canvas.height = Math.round(height * scale);
+      context.setTransform(scale, 0, 0, scale, 0, 0);
+      context.font = "12px ui-monospace, Consolas, monospace";
+      context.textAlign = "center";
+      context.textBaseline = "middle";
+      context.fillStyle = "#a6ffd8";
+    }
+
+    lastPoint = { x, y, time };
+    waves.push({ ...lastPoint, seed: Math.floor(time) });
+    if (frame === null) frame = requestAnimationFrame(render);
   }, { passive: true });
-  section.addEventListener("pointerleave", resetBackdrop);
-  reducedMotion.addEventListener("change", resetBackdrop);
+
+  section.addEventListener("pointerleave", () => {
+    lastPoint = undefined;
+  });
+  reducedMotion.addEventListener("change", () => {
+    if (frame !== null) cancelAnimationFrame(frame);
+    frame = null;
+    waves.length = 0;
+    lastPoint = undefined;
+    context.clearRect(0, 0, width, height);
+  });
 });
