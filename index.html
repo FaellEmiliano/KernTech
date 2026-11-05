@@ -45,20 +45,37 @@
                 <div class="service-index" id="service-index"></div>
             </div>
         </section>
-        <section class="section" id="contato">
-            <div class="container contact-layout">
-                <div><span class="eyebrow eyebrow-dark">FALE COM A KERNTECH</span>
-                    <h2>Vamos conversar?</h2>
-                    <p>Escolha o serviço desejado. Este formulário é demonstrativo e não envia informações.</p>
+        <section class="section contact-section" id="contato">
+            <div class="container">
+                <div class="contact-terminal">
+                    <div class="contact-terminal-bar" aria-hidden="true">
+                        <span class="contact-terminal-title">kerntech@suporte: ~/contato</span>
+                        <span class="contact-terminal-window">[ _ ] [ □ ] [ × ]</span>
+                    </div>
+                    <div class="contact-layout">
+                        <div class="contact-intro">
+                            <span class="terminal-path">~/kerntech <span class="terminal-command">$ ./contato.sh</span></span>
+                            <span class="eyebrow">CANAL DE CONTATO // 01</span>
+                            <h2>Vamos<br>conversar<span class="terminal-punctuation">_</span></h2>
+                            <p>Escolha o serviço desejado e prepare sua solicitação.</p>
+                            <p class="terminal-note"><span aria-hidden="true">&gt;</span> Modo demonstração: nenhuma informação será enviada.</p>
+                        </div>
+                        <form id="contact-form" class="contact-form">
+                            <p class="contact-form-heading"><span aria-hidden="true">&gt;</span> nova_solicitacao --iniciar</p>
+                            <label for="name">01 / NOME</label>
+                            <input id="name" name="name" required autocomplete="name" placeholder="Seu nome">
+                            <label for="email">02 / E-MAIL</label>
+                            <input id="email" name="email" type="email" required autocomplete="email" placeholder="voce@empresa.com.br">
+                            <label for="service">03 / SERVIÇO</label>
+                            <select id="service" name="service" required>
+                                <option value="">Selecione um serviço</option>
+                            </select>
+                            <button class="button button-primary" type="submit"><span aria-hidden="true">&gt;</span> Preparar solicitação ↗</button>
+                            <div id="form-feedback" class="form-feedback" role="status" hidden></div>
+                        </form>
+                    </div>
+                    <div class="contact-terminal-status" aria-hidden="true"><span>● SISTEMA ONLINE</span><span>kernTech / CLI v1.0</span></div>
                 </div>
-                <form id="contact-form" class="contact-form"><label for="name">Nome</label><input id="name" name="name"
-                        required placeholder="Seu nome"><label for="email">E-mail</label><input id="email" name="email"
-                        type="email" required placeholder="voce@empresa.com.br"><label
-                        for="service">Serviço</label><select id="service" name="service" required>
-                        <option value="">Selecione um serviço</option>
-                    </select><button class="button button-primary" type="submit">Preparar solicitação ↗</button>
-                    <div id="form-feedback" class="form-feedback" role="status" hidden></div>
-                </form>
             </div>
         </section>
     </main>
