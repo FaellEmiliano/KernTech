@@ -53,7 +53,7 @@ const services=[
       "Testes de restauração de arquivos"
     ],
     "number": "04",
-    "image": "assets/20261105_105203.jpg"
+    "image": "assets/backup-original.jpg"
   },
   {
     "id": "suporte",
