@@ -177,3 +177,38 @@ p { color: var(--muted); }
   .terminal-character { visibility: visible; }
   .terminal-cursor::after { display: none; }
 }
+
+
+/* Contato: interface inspirada em terminal / TUI */
+.contact-section { background: #0b1014; }
+.contact-terminal { border: 1px solid #52635e; background: #0c1216; font-family: ui-monospace, "Cascadia Code", "Fira Code", Consolas, monospace; }
+.contact-terminal-bar, .contact-terminal-status { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 10px 20px; font-size: 11px; letter-spacing: .035em; }
+.contact-terminal-bar { border-bottom: 1px solid #52635e; color: var(--ink); background: #141e22; }
+.contact-terminal-window { color: var(--muted); white-space: nowrap; }
+.contact-terminal .contact-layout { padding: clamp(24px, 5vw, 65px); gap: clamp(26px, 5vw, 70px); align-items: start; }
+.contact-intro { min-width: 0; }
+.contact-intro .terminal-path { display: block; margin-bottom: clamp(38px, 6vw, 75px); font-size: 13px; color: var(--muted); }
+.contact-intro .terminal-command, .contact-intro .terminal-punctuation { color: var(--accent); }
+.contact-intro .eyebrow { color: var(--accent); font: 600 12px ui-monospace, Consolas, monospace; letter-spacing: .09em; }
+.contact-intro h2 { font-size: clamp(2.7rem, 5vw, 5.2rem); letter-spacing: -.055em; overflow-wrap: anywhere; }
+.contact-intro > p { max-width: 34ch; }
+.contact-intro .terminal-note { margin-top: 35px; padding-top: 17px; border-top: 1px dashed #52635e; font-size: 12px; line-height: 1.7; }
+.terminal-note span, .contact-form-heading span { color: var(--accent); }
+.contact-terminal .contact-form { gap: 11px; padding: 24px; border: 1px solid #52635e; border-radius: 0; background: #10191d; box-shadow: none; font-family: inherit; }
+.contact-form-heading { margin: 0 0 15px; color: var(--ink); font-size: 13px; overflow-wrap: anywhere; }
+.contact-terminal .contact-form label { margin-top: 6px; color: #b8c7c2; font: 600 11px ui-monospace, Consolas, monospace; letter-spacing: .08em; }
+.contact-terminal .contact-form input, .contact-terminal .contact-form select { min-height: 46px; border: 1px solid #52635e; border-radius: 0; background: #0a1114; color: var(--ink); font: 14px ui-monospace, Consolas, monospace; }
+.contact-terminal .contact-form input::placeholder { color: #82928e; opacity: 1; }
+.contact-terminal .contact-form input:focus, .contact-terminal .contact-form select:focus { border-color: var(--accent); outline: 1px solid var(--accent); outline-offset: 0; }
+.contact-terminal .contact-form .button { width: 100%; gap: 9px; justify-content: flex-start; margin-top: 17px; padding: 13px 15px; border-radius: 0; font-family: inherit; transition: background-color .2s; }
+.contact-terminal .contact-form .button:hover { transform: none; }
+.contact-terminal .form-feedback { padding: 12px; border: 1px solid #52635e; font: 12px/1.65 ui-monospace, Consolas, monospace; overflow-wrap: anywhere; }
+.contact-terminal-status { border-top: 1px solid #52635e; color: var(--muted); background: #141e22; }
+.contact-terminal-status span:first-child { color: var(--accent); }
+@media (max-width: 650px) {
+  .contact-terminal-bar, .contact-terminal-status { padding-inline: 12px; font-size: 10px; }
+  .contact-terminal .contact-layout { padding: 20px 14px; }
+  .contact-intro .terminal-path { margin-bottom: 30px; }
+  .contact-terminal .contact-form { padding: 18px 14px; }
+  .contact-terminal-window { font-size: 10px; }
+}
