@@ -21,7 +21,7 @@ button, input, select { font: inherit; }
 .nav, .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
 .nav { min-height: var(--header); }
 .logo { display: inline-flex; align-items: center; gap: 8px; font: 700 22px "Space Grotesk", system-ui, sans-serif; }
-.logo-mark { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 9px; background: var(--accent); color: var(--bg); font-size: 17px; }
+.logo-mark { display: block; width: 38px; height: auto; flex-shrink: 0; }
 .logo-accent { color: var(--accent); }
 .footer .logo { gap: 0; }
 .footer .logo-mark { margin-right: 8px; }
