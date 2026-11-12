@@ -17,7 +17,6 @@ const services=[
     "id": "redes",
     "title": "Instalação e configuração de redes",
     "cat": "Infraestrutura",
-    "photo": "photo-1558494949-ef010cbdcc31",
     "desc": "Projetos de conectividade com configuração de roteadores, switches, redes cabeadas e Wi-Fi empresarial.",
     "features": [
       "Planejamento de rede local",
@@ -25,13 +24,12 @@ const services=[
       "Configuração e testes de conectividade"
     ],
     "number": "02",
-    "image": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1000&q=85"
+    "image": "assets/Foto-redes-IA.jpeg"
   },
   {
     "id": "seguranca",
     "title": "Segurança digital",
     "cat": "Segurança & dados",
-    "photo": "photo-1563207153-f403bf289096",
     "desc": "Camadas de proteção para dispositivos e redes, com foco em redução de riscos e boas práticas de segurança.",
     "features": [
       "Configuração de firewall",
@@ -39,7 +37,7 @@ const services=[
       "Orientação em boas práticas digitais"
     ],
     "number": "03",
-    "image": "https://images.unsplash.com/photo-1563207153-f403bf289096?w=1000&q=85"
+    "image": "assets/Foto-Seguranca-IA.jpeg"
   },
   {
     "id": "backup",
@@ -70,17 +68,16 @@ const services=[
     "image": "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1000&q=85"
   },
   {
-    "id": "servidores",
-    "title": "Implantação de servidores",
+    "id": "instalacao",
+    "title": "Instalação e Configuração de Sistemas",
     "cat": "Infraestrutura",
-    "photo": "photo-1544197150-b99a580bb7a8",
-    "desc": "Configuração de servidores e recursos compartilhados para centralizar e organizar serviços internos.",
+    "desc": "Instalação de sistemas operacionais e configuração de computadores para o dia a dia da sua equipe.",
     "features": [
-      "Instalação e configuração de servidor",
-      "Compartilhamento de arquivos e recursos",
-      "Configuração de usuários e permissões"
+      "Preparação do pendrive de instalação",
+      "Instalação do sistema operacional",
+      "Configuração do desktop"
     ],
     "number": "06",
-    "image": "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=1000&q=85"
+    "image": "assets/Foto-instalacao-IA.jpeg"
   }
 ];
