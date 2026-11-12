@@ -108,6 +108,14 @@ p { color: var(--muted); }
   font: 700 clamp(1.25rem, 2.4vw, 2rem)/1.15 "Space Grotesk", system-ui, sans-serif;
   letter-spacing: -.04em;
 }
+.service-credit {
+  display: block;
+  margin-top: .55rem;
+  color: var(--ink);
+  font-size: 1rem;
+  line-height: 1.4;
+}
+.service-credit strong { color: var(--accent); }
 .service-arrow { color: var(--accent); transition: transform .23s ease-out; }
 .service-link:hover .service-number,
 .service-link:focus-visible .service-number,

@@ -1,6 +1,7 @@
 const services=[
   {
     "id": "manutencao",
+    "planner": "Rafael",
     "title": "Manutenção de computadores",
     "cat": "Suporte técnico",
     "photo": "photo-1581092921461-eab62e97a780",
@@ -15,6 +16,7 @@ const services=[
   },
   {
     "id": "redes",
+    "planner": "Kaique",
     "title": "Instalação e configuração de redes",
     "cat": "Infraestrutura",
     "desc": "Projetos de conectividade com configuração de roteadores, switches, redes cabeadas e Wi-Fi empresarial.",
@@ -28,6 +30,7 @@ const services=[
   },
   {
     "id": "seguranca",
+    "planner": "Pyetro",
     "title": "Segurança digital",
     "cat": "Segurança & dados",
     "desc": "Camadas de proteção para dispositivos e redes, com foco em redução de riscos e boas práticas de segurança.",
@@ -41,6 +44,7 @@ const services=[
   },
   {
     "id": "backup",
+    "planner": "Matheus",
     "title": "Backup e recuperação de dados",
     "cat": "Segurança & dados",
     "photo": "photo-1597852074816-d933c7d2b988",
@@ -55,6 +59,7 @@ const services=[
   },
   {
     "id": "suporte",
+    "planner": "Lucas",
     "title": "Suporte técnico empresarial",
     "cat": "Suporte técnico",
     "photo": "photo-1519389950473-47ba0277781c",
@@ -69,6 +74,7 @@ const services=[
   },
   {
     "id": "instalacao",
+    "planner": "Nicolas Rodrigues",
     "title": "Instalação e Configuração de Sistemas",
     "cat": "Infraestrutura",
     "desc": "Instalação de sistemas operacionais e configuração de computadores para o dia a dia da sua equipe.",

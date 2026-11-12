@@ -7,7 +7,10 @@ if (serviceIndex) {
         <li>
           <a class="service-link" href="servicos/${service.id}.html" aria-describedby="desc-${service.id}">
             <span class="service-number" aria-hidden="true">${service.number}</span>
-            <span class="service-title">${service.title}</span>
+            <span>
+              <span class="service-title">${service.title}</span>
+              <span class="service-credit">Planejamento por <strong>${service.planner}</strong></span>
+            </span>
             <span class="service-arrow" aria-hidden="true">↗</span>
             <span class="service-description" id="desc-${service.id}">${service.desc}</span>
           </a>
