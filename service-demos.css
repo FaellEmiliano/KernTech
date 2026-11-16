@@ -192,3 +192,34 @@
 .demo-stage-3d { display: block; padding: 0; overflow: hidden; }
 .demo-stage-3d > :not(.demo-canvas) { display: none; }
 .demo-canvas { display: block; width: 100%; height: clamp(220px, 30vw, 360px); }
+
+.demo-scroll-hint { display: none; }
+.demo-scroll {
+  box-sizing: content-box;
+  height: calc(var(--demo-screen) + var(--demo-travel));
+  padding-block: 0;
+}
+.demo-scroll .demo-layout {
+  position: sticky;
+  top: var(--demo-header);
+  height: var(--demo-screen);
+  align-content: center;
+}
+.demo-scroll .demo-scroll-hint {
+  display: block;
+  margin: 0;
+  color: var(--muted);
+  font-size: .875rem;
+}
+.demo-scroll-hint::after {
+  content: "";
+  display: block;
+  width: 110px;
+  height: 3px;
+  margin-top: 8px;
+  border-radius: 3px;
+  background: linear-gradient(to right, var(--accent) calc(var(--demo-progress, 0) * 100%), #52635e 0);
+}
+@media (max-width: 700px) {
+  .demo-scroll .demo-layout { grid-template-rows: minmax(145px, auto) auto; }
+}

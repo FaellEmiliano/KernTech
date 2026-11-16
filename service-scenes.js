@@ -201,6 +201,7 @@ function mountScene(stage, demo, build) {
 
   const sizeObserver = new ResizeObserver(resize);
   const stepObserver = new MutationObserver(() => {
+    if (demo.classList.contains("demo-scroll")) return;
     const previous = current;
     const next = Number(demo.dataset.step);
     cancelAnimationFrame(frame);
@@ -221,16 +222,27 @@ function mountScene(stage, demo, build) {
     frame = requestAnimationFrame(animate);
   });
 
+  function followScroll(event) {
+    cancelAnimationFrame(frame);
+    if (current === event.detail) return;
+    current = event.detail;
+    draw();
+  }
+
+  demo.addEventListener("demo-progress", followScroll);
   canvas.addEventListener("webglcontextlost", () => {
     cancelAnimationFrame(frame);
     sizeObserver.disconnect();
     stepObserver.disconnect();
     canvas.remove();
     stage.classList.remove("demo-stage-3d");
+    demo.removeEventListener("demo-progress", followScroll);
+    demo.dispatchEvent(new Event("demo-renderer-change"));
   });
   resize();
   stage.append(canvas);
   stage.classList.add("demo-stage-3d");
   sizeObserver.observe(stage);
   stepObserver.observe(demo, { attributes: true, attributeFilter: ["data-step"] });
+  demo.dispatchEvent(new Event("demo-renderer-change"));
 }
