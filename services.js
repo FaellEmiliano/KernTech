@@ -70,7 +70,7 @@ const services=[
       "Resolução de problemas recorrentes"
     ],
     "number": "05",
-    "image": "assets/Foto-assistencia-IA.jpeg"
+    "image": "assets/Foto-assistencia-IA.jpeg?v=lucas-2"
   },
   {
     "id": "instalacao",
