@@ -4,19 +4,29 @@
   padding-block: clamp(32px, 6vw, 72px);
 }
 .demo-layout {
-  display: grid;
-  grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr);
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: clamp(24px, 5vw, 70px);
+  gap: 16px;
 }
-.demo-copy h2 { font-size: clamp(1.9rem, 4vw, 3.25rem); }
-.demo-status { margin-block: 16px 22px; min-height: 4.5em; }
+.demo-copy { order: 1; }
+.demo-copy h2, .demo-status {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
 .demo-button[hidden] { display: none; }
 .demo-button:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
 .demo-button { cursor: pointer; }
 .demo-stage {
   display: grid;
   place-items: center;
+  width: 100%;
   min-height: 250px;
   padding: clamp(14px, 3vw, 30px);
   border: 1px solid var(--line);
@@ -141,9 +151,7 @@
 .demo-laptop .demo-node { display: none; min-height: 125px; }
 .demo-laptop .demo-node[aria-current] { display: grid; }
 @media (max-width: 700px) {
-  .demo-layout { grid-template-columns: minmax(0, 1fr); }
   .demo-stage { min-height: 200px; }
-  .demo-status { min-height: 0; }
 }
 @media (prefers-reduced-motion: reduce) {
   .service-demo * { transition: none; }
@@ -193,7 +201,6 @@
 .demo-stage-3d > :not(.demo-canvas) { display: none; }
 .demo-canvas { display: block; width: 100%; height: clamp(220px, 30vw, 360px); }
 
-.demo-scroll-hint { display: none; }
 .demo-scroll {
   box-sizing: content-box;
   height: calc(var(--demo-screen) + var(--demo-travel));
@@ -203,23 +210,8 @@
   position: sticky;
   top: var(--demo-header);
   height: var(--demo-screen);
-  align-content: center;
+  justify-content: center;
 }
-.demo-scroll .demo-scroll-hint {
-  display: block;
-  margin: 0;
-  color: var(--muted);
-  font-size: .875rem;
-}
-.demo-scroll-hint::after {
-  content: "";
-  display: block;
-  width: 110px;
-  height: 3px;
-  margin-top: 8px;
-  border-radius: 3px;
-  background: linear-gradient(to right, var(--accent) calc(var(--demo-progress, 0) * 100%), #52635e 0);
-}
-@media (max-width: 700px) {
-  .demo-scroll .demo-layout { grid-template-rows: minmax(145px, auto) auto; }
+.demo-scroll .demo-canvas {
+  height: calc(var(--demo-screen) * 0.88);
 }

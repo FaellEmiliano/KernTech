@@ -174,7 +174,7 @@ function mountScene(stage, demo, build) {
   const updateModel = build(model);
   const camera = new THREE.OrthographicCamera();
   camera.position.set(3.8, 3.65, 6);
-  camera.lookAt(0, 0.45, 0);
+  camera.lookAt(0, 0.60, 0);
   const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
   let current = Number(demo.dataset.step);
   let frame = 0;
@@ -187,7 +187,7 @@ function mountScene(stage, demo, build) {
   function resize() {
     const width = stage.clientWidth;
     const height = canvas.clientHeight || Math.max(220, width * 0.58);
-    const halfHeight = Math.max(1.85, 2.65 * height / Math.max(1, width));
+    const halfHeight = Math.max(2.05, 2.65 * height / Math.max(1, width));
     const halfWidth = halfHeight * width / height;
     camera.left = -halfWidth;
     camera.right = halfWidth;
