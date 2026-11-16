@@ -9,8 +9,18 @@
   align-items: center;
   gap: 16px;
 }
-.demo-copy { order: 1; }
-.demo-copy h2, .demo-status {
+.demo-copy { display: contents; }
+.demo-copy h2 {
+  order: -1;
+  margin: 0;
+  max-width: 28ch;
+  color: var(--ink);
+  font-size: clamp(1.5rem, 3.3vw, 2.85rem);
+  line-height: 1.08;
+  text-align: center;
+  text-wrap: balance;
+}
+.demo-status {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -22,7 +32,7 @@
 }
 .demo-button[hidden] { display: none; }
 .demo-button:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
-.demo-button { cursor: pointer; }
+.demo-button { order: 1; cursor: pointer; }
 .demo-stage {
   display: grid;
   place-items: center;
@@ -210,8 +220,10 @@
   position: sticky;
   top: var(--demo-header);
   height: var(--demo-screen);
-  justify-content: center;
+  padding-block: clamp(16px, 3svh, 36px);
 }
-.demo-scroll .demo-canvas {
-  height: calc(var(--demo-screen) * 0.88);
+.demo-scroll .demo-stage {
+  flex: 1;
+  min-height: 0;
 }
+.demo-scroll .demo-canvas { height: 100%; }
