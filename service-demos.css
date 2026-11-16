@@ -188,3 +188,7 @@
   background: repeating-linear-gradient(90deg, #132621 0 14px, #1a352c 14px 15px);
 }
 .demo-case .demo-node:first-child { min-height: 64px; }
+
+.demo-stage-3d { display: block; padding: 0; overflow: hidden; }
+.demo-stage-3d > :not(.demo-canvas) { display: none; }
+.demo-canvas { display: block; width: 100%; height: clamp(220px, 30vw, 360px); }

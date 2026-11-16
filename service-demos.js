@@ -21,3 +21,15 @@ document.querySelectorAll(".service-demo").forEach(demo => {
 
   button.hidden = false;
 });
+
+const visualStage = document.querySelector(".demo-stage");
+if (visualStage && "IntersectionObserver" in window) {
+  const visibility = new IntersectionObserver(([entry]) => {
+    if (!entry.isIntersecting) return;
+    visibility.disconnect();
+    import("./service-scenes.js").catch(error => {
+      console.warn("Demonstração 3D indisponível", error);
+    });
+  }, { rootMargin: "160px" });
+  visibility.observe(visualStage);
+}
