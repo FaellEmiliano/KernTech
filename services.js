@@ -12,7 +12,7 @@ const services=[
       "Atualizações e substituição de componentes"
     ],
     "number": "01",
-    "image": "https://images.unsplash.com/photo-1581092921461-eab62e97a780?w=1000&q=85"
+    "image": "assets/Foto-reparo-IA.png"
   },
   {
     "id": "redes",
